@@ -247,6 +247,7 @@
 		</plugins>
 	</build>
 	<repositories>
+		<!-- 阿里云仓库 -->
 		<repository>
 			<id>aliyun-repos</id>
 			<url>http://maven.aliyun.com/nexus/content/groups/public/</url>
@@ -256,6 +257,12 @@
 			<snapshots>
 				<enabled>false</enabled>
 			</snapshots>
+		</repository>
+		<!-- Aspose 官方仓库 -->
+		<repository>
+			<id>AsposeJavaAPI</id>
+			<name>Aspose Java API</name>
+			<url>https://releases.aspose.com/java/repo/</url>
 		</repository>
 	</repositories>
 
