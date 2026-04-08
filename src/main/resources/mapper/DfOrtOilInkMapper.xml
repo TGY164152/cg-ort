@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ww.ort.mapper.DfOrtOilInkMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.ww.ort.entity.DfOrtOilInk">
+        <id column="id" property="id" />
+        <result column="batch" property="batch" />
+        <result column="check_time" property="checkTime" />
+        <result column="day_or_night" property="dayOrNight" />
+        <result column="project" property="project" />
+        <result column="stage" property="stage" />
+        <result column="color" property="color" />
+        <result column="no" property="no" />
+        <result column="point1" property="point1" />
+        <result column="point2" property="point2" />
+        <result column="point3" property="point3" />
+        <result column="point4" property="point4" />
+        <result column="point5" property="point5" />
+        <result column="point6" property="point6" />
+        <result column="point7" property="point7" />
+        <result column="point8" property="point8" />
+        <result column="point9" property="point9" />
+        <result column="result" property="result" />
+        <result column="test" property="test" />
+        <result column="create_time" property="createTime" />
+    </resultMap>
+
+</mapper>

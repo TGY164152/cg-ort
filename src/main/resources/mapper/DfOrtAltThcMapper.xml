@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ww.ort.mapper.DfOrtAltThcMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.ww.ort.entity.DfOrtAltThc">
+        <id column="id" property="id" />
+        <result column="batch" property="batch" />
+        <result column="factory" property="factory" />
+        <result column="project" property="project" />
+        <result column="build" property="build" />
+        <result column="color" property="color" />
+        <result column="code2d" property="code2d" />
+        <result column="glue" property="glue" />
+        <result column="test_item" property="testItem" />
+        <result column="no" property="no" />
+        <result column="h24_result" property="h24Result" />
+        <result column="h72_result" property="h72Result" />
+        <result column="h144_result" property="h144Result" />
+        <result column="h360_result" property="h360Result" />
+        <result column="check_time" property="checkTime" />
+        <result column="create_time" property="createTime" />
+    </resultMap>
+
+</mapper>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ww.ort.mapper.DfOrtTestItemUrlMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.ww.ort.entity.DfOrtTestItemUrl">
+        <id column="id" property="id" />
+        <result column="make_process" property="makeProcess" />
+        <result column="process" property="process" />
+        <result column="function" property="function" />
+        <result column="test_item" property="testItem" />
+        <result column="url" property="url" />
+        <result column="sort" property="sort" />
+        <result column="is_use" property="isUse" />
+        <result column="floor" property="floor" />
+        <result column="create_time" property="createTime" />
+        <result column="update_time" property="updateTime" />
+    </resultMap>
+
+</mapper>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ww.ort.mapper.DfOrtUvBaigeColorMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.ww.ort.entity.DfOrtUvBaigeColor">
+        <id column="id" property="id" />
+        <result column="test_hour" property="testHour" />
+        <result column="sn" property="sn" />
+        <result column="location" property="location" />
+        <result column="de94" property="de94" />
+        <result column="result" property="result" />
+        <result column="test_time" property="testTime" />
+        <result column="create_time" property="createTime" />
+    </resultMap>
+
+</mapper>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ww.ort.mapper.DfOrtOpticalDensityResultMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.ww.ort.entity.DfOrtOpticalDensityResult">
+        <id column="id" property="id" />
+        <result column="batch" property="batch" />
+        <result column="ink1_result" property="ink1Result" />
+        <result column="ink2_result" property="ink2Result" />
+        <result column="ink3_result" property="ink3Result" />
+        <result column="ink4_result" property="ink4Result" />
+        <result column="result" property="result" />
+        <result column="check_time" property="checkTime" />
+        <result column="create_time" property="createTime" />
+    </resultMap>
+
+</mapper>

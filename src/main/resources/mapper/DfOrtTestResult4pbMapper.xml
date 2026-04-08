@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ww.ort.mapper.DfOrtTestResult4pbMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.ww.ort.entity.DfOrtTestResult4pb">
+        <id column="id" property="id" />
+        <result column="result" property="result" />
+        <result column="char632" property="char632" />
+        <result column="b10" property="b10" />
+        <result column="b5" property="b5" />
+        <result column="treshold" property="treshold" />
+        <result column="type" property="type" />
+        <result column="test_no" property="testNo" />
+        <result column="submit_time" property="submitTime" />
+        <result column="test_time" property="testTime" />
+        <result column="machine_code" property="machineCode" />
+        <result column="operator" property="operator" />
+        <result column="create_time" property="createTime" />
+        <result column="factory" property="factory" />
+        <result column="production_phase" property="productionPhase" />
+        <result column="model" property="model" />
+        <result column="color" property="color" />
+        <result column="config" property="config" />
+        <result column="batch" property="batch" />
+        <result column="char632_standard" property="char632Standard" />
+        <result column="b10_standard" property="b10Standard" />
+        <result column="b5_standard" property="b5Standard" />
+        <result column="treshold_standard" property="tresholdStandard" />
+        <result column="config_data" property="configData" />
+    </resultMap>
+
+</mapper>

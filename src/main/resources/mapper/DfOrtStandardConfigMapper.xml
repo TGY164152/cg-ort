@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ww.ort.mapper.DfOrtStandardConfigMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.ww.ort.entity.DfOrtStandardConfig">
+        <id column="id" property="id" />
+        <result column="project" property="project" />
+        <result column="color" property="color" />
+        <result column="stage" property="stage" />
+        <result column="process" property="process" />
+        <result column="check_item" property="checkItem" />
+        <result column="standard_min" property="standardMin" />
+        <result column="standard_max" property="standardMax" />
+        <result column="create_time" property="createTime" />
+        <result column="update_time" property="updateTime" />
+        <result column="sort" property="sort" />
+    </resultMap>
+
+</mapper>

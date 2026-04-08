@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ww.ort.mapper.DfOrtHazeRatioDetailMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.ww.ort.entity.DfOrtHazeRatioDetail">
+        <id column="id" property="id" />
+        <result column="process" property="process" />
+        <result column="test" property="test" />
+        <result column="project" property="project" />
+        <result column="color" property="color" />
+        <result column="factory_test_time" property="factoryTestTime" />
+        <result column="test_time" property="testTime" />
+        <result column="day_or_night" property="dayOrNight" />
+        <result column="batch" property="batch" />
+        <result column="RX" property="rx" />
+        <result column="PX" property="px" />
+        <result column="TX" property="tx" />
+        <result column="create_time" property="createTime" />
+    </resultMap>
+
+</mapper>

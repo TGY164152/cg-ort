@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ww.ort.mapper.DfOrtWarmTorsionMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.ww.ort.entity.DfOrtWarmTorsion">
+        <id column="id" property="id" />
+        <result column="top2d" property="top2d" />
+        <result column="bottom2d" property="bottom2d" />
+        <result column="testDate" property="testDate" />
+        <result column="program" property="program" />
+        <result column="build" property="build" />
+        <result column="color" property="color" />
+        <result column="no" property="no" />
+        <result column="force_first_discoloration" property="forceFirstDiscoloration" />
+        <result column="force_reach_limit_discoloration" property="forceReachLimitDiscoloration" />
+        <result column="force6mm" property="force6mm" />
+        <result column="displacement" property="displacement" />
+        <result column="force_separate" property="forceSeparate" />
+        <result column="displacement_separate" property="displacementSeparate" />
+        <result column="failure_mode_top" property="failureModeTop" />
+        <result column="failure_mode_bottom" property="failureModeBottom" />
+        <result column="check_time" property="checkTime" />
+        <result column="create_time" property="createTime" />
+    </resultMap>
+
+</mapper>

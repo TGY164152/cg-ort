@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ww.ort.mapper.DfOrtTestDataMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.ww.ort.entity.DfOrtTestData">
+        <id column="id" property="id" />
+        <result column="file_id" property="fileId" />
+        <result column="factory" property="factory" />
+        <result column="project" property="project" />
+        <result column="color" property="color" />
+        <result column="stage" property="stage" />
+        <result column="process" property="process" />
+        <result column="check_item" property="checkItem" />
+        <result column="check_time" property="checkTime" />
+        <result column="check_date" property="checkDate" />
+        <result column="day_or_night" property="dayOrNight" />
+        <result column="batch" property="batch" />
+        <result column="string1" property="string1" />
+        <result column="string2" property="string2" />
+        <result column="string3" property="string3" />
+        <result column="string4" property="string4" />
+        <result column="string5" property="string5" />
+        <result column="string6" property="string6" />
+        <result column="string7" property="string7" />
+        <result column="string8" property="string8" />
+        <result column="string9" property="string9" />
+        <result column="string10" property="string10" />
+        <result column="value1" property="value1" />
+        <result column="value2" property="value2" />
+        <result column="value3" property="value3" />
+        <result column="value4" property="value4" />
+        <result column="value5" property="value5" />
+        <result column="value6" property="value6" />
+        <result column="value7" property="value7" />
+        <result column="value8" property="value8" />
+        <result column="value9" property="value9" />
+        <result column="value10" property="value10" />
+        <result column="value11" property="value11" />
+        <result column="value12" property="value12" />
+        <result column="value13" property="value13" />
+        <result column="value14" property="value14" />
+        <result column="value15" property="value15" />
+        <result column="value16" property="value16" />
+        <result column="value17" property="value17" />
+        <result column="value18" property="value18" />
+        <result column="value19" property="value19" />
+        <result column="value20" property="value20" />
+        <result column="value21" property="value21" />
+        <result column="value22" property="value22" />
+        <result column="value23" property="value23" />
+        <result column="value24" property="value24" />
+        <result column="value25" property="value25" />
+        <result column="value26" property="value26" />
+        <result column="value27" property="value27" />
+        <result column="value28" property="value28" />
+        <result column="value29" property="value29" />
+        <result column="value30" property="value30" />
+        <result column="value31" property="value31" />
+        <result column="value32" property="value32" />
+        <result column="create_time" property="createTime" />
+        <result column="update_time" property="updateTime" />
+    </resultMap>
+
+</mapper>

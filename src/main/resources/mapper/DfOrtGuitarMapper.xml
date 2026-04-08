@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ww.ort.mapper.DfOrtGuitarMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.ww.ort.entity.DfOrtGuitar">
+        <id column="id" property="id" />
+        <result column="sn" property="sn" />
+        <result column="project" property="project" />
+        <result column="phase" property="phase" />
+        <result column="color" property="color" />
+        <result column="sample" property="sample" />
+        <result column="hole" property="hole" />
+        <result column="load" property="load" />
+        <result column="test_times" property="testTimes" />
+        <result column="occur_times" property="occurTimes" />
+        <result column="failure_mode" property="failureMode" />
+        <result column="scratch" property="scratch" />
+        <result column="peel_off" property="peelOff" />
+        <result column="pic_url" property="picUrl" />
+        <result column="result" property="result" />
+        <result column="check_time" property="checkTime" />
+        <result column="check_type" property="checkType" />
+        <result column="create_time" property="createTime" />
+    </resultMap>
+
+</mapper>

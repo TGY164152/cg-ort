@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ww.ort.mapper.DfOrtRockTumbleSizeMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.ww.ort.entity.DfOrtRockTumbleSize">
+        <id column="id" property="id" />
+        <result column="batch" property="batch" />
+        <result column="description" property="description" />
+        <result column="description_cn" property="descriptionCn" />
+        <result column="nominal" property="nominal" />
+        <result column="tol_up" property="tolUp" />
+        <result column="tol_down" property="tolDown" />
+        <result column="usl" property="usl" />
+        <result column="lsl" property="lsl" />
+        <result column="maximum" property="maximum" />
+        <result column="minimum" property="minimum" />
+        <result column="mean" property="mean" />
+        <result column="new_buck1" property="newBuck1" />
+        <result column="new_buck2" property="newBuck2" />
+        <result column="new_buck3" property="newBuck3" />
+        <result column="new_buck4" property="newBuck4" />
+        <result column="new_buck5" property="newBuck5" />
+        <result column="new_buck6" property="newBuck6" />
+        <result column="new_buck7" property="newBuck7" />
+        <result column="new_buck8" property="newBuck8" />
+        <result column="new_buck9" property="newBuck9" />
+        <result column="new_buck10" property="newBuck10" />
+        <result column="check_time" property="checkTime" />
+        <result column="create_time" property="createTime" />
+    </resultMap>
+
+</mapper>

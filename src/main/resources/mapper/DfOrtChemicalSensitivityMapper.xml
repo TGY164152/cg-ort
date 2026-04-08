@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ww.ort.mapper.DfOrtChemicalSensitivityMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.ww.ort.entity.DfOrtChemicalSensitivity">
+        <id column="id" property="id" />
+        <result column="batch" property="batch" />
+        <result column="check_time" property="checkTime" />
+        <result column="code2d" property="code2d" />
+        <result column="project" property="project" />
+        <result column="phase" property="phase" />
+        <result column="color" property="color" />
+        <result column="sample_no" property="sampleNo" />
+        <result column="hole" property="hole" />
+        <result column="chemical_name" property="chemicalName" />
+        <result column="pic_url" property="picUrl" />
+        <result column="sample_grade" property="sampleGrade" />
+        <result column="grade_cd_pic" property="gradeCdPic" />
+        <result column="result" property="result" />
+        <result column="create_time" property="createTime" />
+    </resultMap>
+
+</mapper>

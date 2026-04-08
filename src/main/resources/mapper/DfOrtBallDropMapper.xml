@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ww.ort.mapper.DfOrtBallDropMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.ww.ort.entity.DfOrtBallDrop">
+        <id column="id" property="id" />
+        <result column="batch" property="batch" />
+        <result column="code2d" property="code2d" />
+        <result column="no" property="no" />
+        <result column="cm10" property="cm10" />
+        <result column="cm15" property="cm15" />
+        <result column="cm20" property="cm20" />
+        <result column="cm25" property="cm25" />
+        <result column="cm30" property="cm30" />
+        <result column="cm35" property="cm35" />
+        <result column="cm40" property="cm40" />
+        <result column="cm45" property="cm45" />
+        <result column="cm50" property="cm50" />
+        <result column="check_value" property="checkValue" />
+        <result column="result_or_fail_point" property="resultOrFailPoint" />
+        <result column="check_time" property="checkTime" />
+        <result column="create_time" property="createTime" />
+    </resultMap>
+
+</mapper>

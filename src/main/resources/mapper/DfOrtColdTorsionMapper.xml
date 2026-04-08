@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ww.ort.mapper.DfOrtColdTorsionMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.ww.ort.entity.DfOrtColdTorsion">
+        <id column="id" property="id" />
+        <result column="top_2d" property="top2d" />
+        <result column="botton_2d" property="botton2d" />
+        <result column="top_code" property="topCode" />
+        <result column="botton_code" property="bottonCode" />
+        <result column="sample_preparation_date" property="samplePreparationDate" />
+        <result column="force_max" property="forceMax" />
+        <result column="force_break" property="forceBreak" />
+        <result column="displacement_at_break" property="displacementAtBreak" />
+        <result column="delam_area_top" property="delamAreaTop" />
+        <result column="delam_area_botton" property="delamAreaBotton" />
+        <result column="no_delam_area_top" property="noDelamAreaTop" />
+        <result column="no_delam_area_botton" property="noDelamAreaBotton" />
+        <result column="total_area_top" property="totalAreaTop" />
+        <result column="total_area_botton" property="totalAreaBotton" />
+        <result column="total_area_average" property="totalAreaAverage" />
+        <result column="delam_ratio_top" property="delamRatioTop" />
+        <result column="delam_ratio_botton" property="delamRatioBotton" />
+        <result column="f_a" property="fA" />
+        <result column="failure_mode_top" property="failureModeTop" />
+        <result column="failure_mode_botton" property="failureModeBotton" />
+        <result column="ink_side_top_picture_url" property="inkSideTopPictureUrl" />
+        <result column="ink_side_botton_picture_url" property="inkSideBottonPictureUrl" />
+        <result column="user_side_top_picture_url" property="userSideTopPictureUrl" />
+        <result column="user_side_botton_picture_url" property="userSideBottonPictureUrl" />
+        <result column="check_time" property="checkTime" />
+        <result column="create_time" property="createTime" />
+    </resultMap>
+
+</mapper>

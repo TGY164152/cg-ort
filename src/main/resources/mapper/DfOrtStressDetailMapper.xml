@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ww.ort.mapper.DfOrtStressDetailMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.ww.ort.entity.DfOrtStressDetail">
+        <id column="id" property="id" />
+        <result column="factory_test_time" property="factoryTestTime" />
+        <result column="test_time" property="testTime" />
+        <result column="day_or_night" property="dayOrNight" />
+        <result column="batch" property="batch" />
+        <result column="process" property="process" />
+        <result column="CS" property="cs" />
+        <result column="CSK" property="csk" />
+        <result column="DOL" property="dol" />
+        <result column="CT" property="ct" />
+        <result column="DOC" property="doc" />
+        <result column="gt_value" property="gtValue" />
+        <result column="create_time" property="createTime" />
+    </resultMap>
+
+</mapper>

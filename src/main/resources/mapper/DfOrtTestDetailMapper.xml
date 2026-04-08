@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ww.ort.mapper.DfOrtTestDetailMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.ww.ort.entity.DfOrtTestDetail">
+        <id column="id" property="id" />
+        <result column="submi_name" property="submiName" />
+        <result column="submi_code" property="submiCode" />
+        <result column="submi_dep" property="submiDep" />
+        <result column="submi_phone" property="submiPhone" />
+        <result column="day_or_night" property="dayOrNight" />
+        <result column="test_project" property="testProject" />
+        <result column="apply_time" property="applyTime" />
+        <result column="target_comple_time" property="targetCompleTime" />
+        <result column="test_code" property="testCode" />
+        <result column="nature_case" property="natureCase" />
+        <result column="project" property="project" />
+        <result column="product_code" property="productCode" />
+        <result column="product_phase" property="productPhase" />
+        <result column="linebody" property="linebody" />
+        <result column="process" property="process" />
+        <result column="color" property="color" />
+        <result column="num" property="num" />
+        <result column="product_machine" property="productMachine" />
+        <result column="sample_damaged" property="sampleDamaged" />
+        <result column="sample_receiver" property="sampleReceiver" />
+        <result column="test_purpose" property="testPurpose" />
+        <result column="remark" property="remark" />
+        <result column="appear_inspector" property="appearInspector" />
+        <result column="appear_inspect_result" property="appearInspectResult" />
+        <result column="doe_remark" property="doeRemark" />
+        <result column="produce_bar_code" property="produceBarCode" />
+        <result column="in_storage_confim" property="inStorageConfim" />
+        <result column="in_storage_time" property="inStorageTime" />
+        <result column="in_storage_confim_man" property="inStorageConfimMan" />
+        <result column="in_storage_position" property="inStoragePosition" />
+        <result column="in_storage_bar_code" property="inStorageBarCode" />
+        <result column="test_machine_bar_code" property="testMachineBarCode" />
+        <result column="test_program" property="testProgram" />
+        <result column="clamp_bar_code" property="clampBarCode" />
+        <result column="test_man" property="testMan" />
+        <result column="test_start_time" property="testStartTime" />
+        <result column="test_end_time" property="testEndTime" />
+        <result column="test_result_remark" property="testResultRemark" />
+        <result column="tested_sample_position" property="testedSamplePosition" />
+        <result column="report_make" property="reportMake" />
+        <result column="report_make_comp_time" property="reportMakeCompTime" />
+        <result column="report_examine" property="reportExamine" />
+        <result column="report_examine_comp_time" property="reportExamineCompTime" />
+        <result column="is_uploaded_file" property="isUploadedFile" />
+        <result column="end_time" property="endTime" />
+        <result column="create_time" property="createTime" />
+        <result column="update_time" property="updateTime" />
+    </resultMap>
+
+</mapper>

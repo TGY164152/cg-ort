@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ww.ort.mapper.DfOrtRockTumbleMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.ww.ort.entity.DfOrtRockTumble">
+        <id column="id" property="id" />
+        <result column="program" property="program" />
+        <result column="build" property="build" />
+        <result column="code2d" property="code2d" />
+        <result column="color" property="color" />
+        <result column="test_date" property="testDate" />
+        <result column="result" property="result" />
+        <result column="max_chipping_area" property="maxChippingArea" />
+        <result column="chipping_area1" property="chippingArea1" />
+        <result column="chipping_area2" property="chippingArea2" />
+        <result column="chipping_area3" property="chippingArea3" />
+        <result column="chipping_area4" property="chippingArea4" />
+        <result column="chipping_area5" property="chippingArea5" />
+        <result column="chipping_area6" property="chippingArea6" />
+        <result column="chipping_area7" property="chippingArea7" />
+        <result column="chipping_area8" property="chippingArea8" />
+        <result column="ng_area" property="ngArea" />
+        <result column="check_time" property="checkTime" />
+        <result column="create_time" property="createTime" />
+    </resultMap>
+
+</mapper>

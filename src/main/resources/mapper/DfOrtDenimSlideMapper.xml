@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ww.ort.mapper.DfOrtDenimSlideMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.ww.ort.entity.DfOrtDenimSlide">
+        <id column="id" property="id" />
+        <result column="batch" property="batch" />
+        <result column="project" property="project" />
+        <result column="phase" property="phase" />
+        <result column="config" property="config" />
+        <result column="color" property="color" />
+        <result column="part_id" property="partId" />
+        <result column="sdq" property="sdq" />
+        <result column="sdq_result" property="sdqResult" />
+        <result column="sal" property="sal" />
+        <result column="sal_result" property="salResult" />
+        <result column="slide_de94" property="slideDe94" />
+        <result column="slide_de94_result" property="slideDe94Result" />
+        <result column="clean_de94" property="cleanDe94" />
+        <result column="clean_de94_result" property="cleanDe94Result" />
+        <result column="check_time" property="checkTime" />
+        <result column="create_time" property="createTime" />
+    </resultMap>
+
+</mapper>

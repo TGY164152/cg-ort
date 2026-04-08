@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ww.ort.mapper.DfOrtFurnaceWaterConcenMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.ww.ort.entity.DfOrtFurnaceWaterConcen">
+        <id column="id" property="id" />
+        <result column="factory" property="factory" />
+        <result column="project" property="project" />
+        <result column="color" property="color" />
+        <result column="furnace_no" property="furnaceNo" />
+        <result column="concen_lino3" property="concenLino3" />
+        <result column="concen_nano3" property="concenNano3" />
+        <result column="concen_kno3" property="concenKno3" />
+        <result column="result_dfm" property="resultDfm" />
+        <result column="result_inner" property="resultInner" />
+        <result column="ca" property="ca" />
+        <result column="check_time" property="checkTime" />
+        <result column="create_time" property="createTime" />
+    </resultMap>
+
+</mapper>
