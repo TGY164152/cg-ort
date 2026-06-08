@@ -106,7 +106,8 @@ public class DfOrtTestItemUrlController {
     public Result getBigScreenProcess() {
         QueryWrapper<DfOrtTestItemUrl> qw = new QueryWrapper<>();
         qw
-                .eq("is_use", 1);
+                .eq("is_use", 1)
+                .orderByAsc("sort");
         List<DfOrtTestItemUrl> list = dfOrtTestItemUrlService.getBigScreenProcess(qw);
         return new Result(200, "查询成功", list);
     }
