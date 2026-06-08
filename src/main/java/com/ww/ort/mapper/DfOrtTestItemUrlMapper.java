@@ -19,16 +19,22 @@ import java.util.List;
  */
 public interface DfOrtTestItemUrlMapper extends BaseMapper<DfOrtTestItemUrl> {
 
-    @Select("with process_temp as (\n" +
-            "\tSELECT process\n" +
-            "\tfrom df_ort_test_item_url\n" +
-            " ${ew.customSqlSegment} " +
-            "\tgroup by process\n" +
-            ")\n" +
-            "select pt.process\n" +
-            "from process_temp pt\n" +
-            "inner join df_ort_process dop\n" +
-            "on dop.process = pt.process and dop.is_use = 1 \n" +
-            "order by dop.sort")
+//    @Select("with process_temp as (\n" +
+//            "\tSELECT process\n" +
+//            "\tfrom df_ort_test_item_url\n" +
+//            " ${ew.customSqlSegment} " +
+//            "\tgroup by process\n" +
+//            ")\n" +
+//            "select pt.process\n" +
+//            "from process_temp pt\n" +
+//            "inner join df_ort_process dop\n" +
+//            "on dop.process = pt.process and dop.is_use = 1 \n" +
+//            "order by dop.sort")
+//    List<DfOrtTestItemUrl> getBigScreenProcess(@Param(Constants.WRAPPER) Wrapper<DfOrtTestItemUrl> wrapper);
+
+    @Select("select process, min(sort) sort\n" +
+            "from df_ort_test_item_url\n" +
+            "group by process\n" +
+            "order by sort asc")
     List<DfOrtTestItemUrl> getBigScreenProcess(@Param(Constants.WRAPPER) Wrapper<DfOrtTestItemUrl> wrapper);
 }
