@@ -209,6 +209,9 @@ public class DfOrtColorAndHazeController {
 
         replaceMap.put("#JSON_DATA#", JsonUtil.toJson(list));
 
+
+
+
         String jslFilePath = env.getProperty("jslPath") + "/多点位（固定）箱线图脚本.jsl";
         String jslCreatePath = env.getProperty("jslCreatePath");
         String imgPath = env.getProperty("imgPath");
