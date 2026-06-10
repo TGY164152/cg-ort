@@ -3,9 +3,11 @@ package com.ww.ort.mq;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.google.gson.reflect.TypeToken;
 import com.ww.ort.entity.DfOrtFileUrl;
+import com.ww.ort.entity.DfOrtStandardConfig;
 import com.ww.ort.entity.DfOrtTestData;
 import com.ww.ort.entity.DfOrtTestItemImportConfig;
 import com.ww.ort.service.DfOrtFileUrlService;
+import com.ww.ort.service.DfOrtStandardConfigService;
 import com.ww.ort.service.DfOrtTestDataService;
 import com.ww.ort.service.DfOrtTestItemImportConfigService;
 import com.ww.ort.utils.*;
@@ -13,10 +15,12 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.poi.xssf.usermodel.XSSFPictureData;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.jms.annotation.JmsListener;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.sql.Timestamp;
@@ -37,6 +41,9 @@ public class LimsDataMq {
 
     @Autowired
     private DfOrtFileUrlService dfOrtFileUrlService;
+
+    @Autowired
+    private DfOrtStandardConfigService dfOrtStandardConfigService;
 
 //    @JmsListener(destination = "${lab_cg_ort}", containerFactory = "jtJmsListenerContainerFactoryQueue")
 //    public void receiveLimsData(String msg) throws Exception {
@@ -217,6 +224,84 @@ public class LimsDataMq {
         String filename = (String) map.get("file_name");
         //base64文件字符串
         String fileBase64 = (String) map.get("file_base64");
+        //Char63.2标准
+        String cher632 = (String) map.get("Char63.2");
+        //B10标准
+        String b10 = (String) map.get("B10");
+        //B5标准
+        String b5 = (String) map.get("B5");
+        //Min标准
+        String min = (String) map.get("Min");
+
+        QueryWrapper<DfOrtStandardConfig> standardQw = new QueryWrapper<>();
+        standardQw
+                .eq("project", project)
+                .eq("color", color)
+                .eq("stage", stage)
+                .eq("process", process)
+                .eq("check_item", checkItem);
+
+        List<DfOrtStandardConfig> standardList = dfOrtStandardConfigService.list(standardQw);
+
+        List<DfOrtStandardConfig> standardUpdateList = new ArrayList<>();
+        List<DfOrtStandardConfig> standardSaveList = new ArrayList<>();
+        if (CollectionUtils.isEmpty(standardList)){
+            DfOrtStandardConfig standard = new DfOrtStandardConfig();
+            standard.setProject( project);
+            standard.setColor(color);
+            standard.setStage(stage);
+            standard.setProcess(process);
+            standard.setCheckItem(checkItem);
+
+            DfOrtStandardConfig char632Standard = new DfOrtStandardConfig();
+            DfOrtStandardConfig b10Standard = new DfOrtStandardConfig();
+            DfOrtStandardConfig b5Standard = new DfOrtStandardConfig();
+            DfOrtStandardConfig minStandard = new DfOrtStandardConfig();
+
+            BeanUtils.copyProperties(standard, char632Standard);
+            char632Standard.setCheckName("Char63.2");
+            char632Standard.setStandardMin(Double.valueOf(cher632));
+
+            BeanUtils.copyProperties(standard, b10Standard);
+            b10Standard.setCheckName("B10");
+            b10Standard.setStandardMin(Double.valueOf(b10));
+
+            BeanUtils.copyProperties(standard, b5Standard);
+            b5Standard.setCheckName("B5");
+            b5Standard.setStandardMin(Double.valueOf(b5));
+
+            BeanUtils.copyProperties(standard, minStandard);
+            minStandard.setCheckName("Min");
+            minStandard.setStandardMin(Double.valueOf(min));
+
+            standardSaveList.add(char632Standard);
+            standardSaveList.add(b10Standard);
+            standardSaveList.add(b5Standard);
+            standardSaveList.add(minStandard);
+        }else {
+            for (DfOrtStandardConfig standard : standardList){
+                String checkName = standard.getCheckName();
+                if ("Char63.2".equals(checkName)){
+                    standard.setStandardMin(Double.valueOf(cher632));
+                } else if ("B10".equals(checkName)) {
+                    standard.setStandardMin(Double.valueOf(b10));
+                }else if ("B5".equals(checkName)) {
+                    standard.setStandardMin(Double.valueOf(b5));
+                }else if ("Min".equals(checkName)) {
+                    standard.setStandardMin(Double.valueOf(min));
+                }
+                standardUpdateList.add(standard);
+            }
+        }
+
+        //新增测试项标准
+        if (standardSaveList.size() > 0){
+            dfOrtStandardConfigService.saveBatch(standardSaveList);
+        }
+        //更新测试项标准
+        if (standardUpdateList.size() > 0){
+            dfOrtStandardConfigService.updateBatchById(standardUpdateList);
+        }
 
         QueryWrapper<DfOrtTestItemImportConfig> configQw = new QueryWrapper<>();
         configQw
