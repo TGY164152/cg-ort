@@ -20,6 +20,8 @@ import java.io.IOException;
 import java.sql.SQLOutput;
 import java.util.*;
 
+import static com.ww.ort.controller.testController.getMD5Hash;
+
 /**
  * <p>
  *  前端控制器
@@ -49,436 +51,6 @@ public class DfOrtStrengthResultController {
     @Autowired
     private DfOrtStandardConfigService dfOrtStandardConfigService;
 
-//    /**
-//     * 获取ORT强度韦伯图
-//     * @return
-//     * @throws IOException
-//     */
-//    @GetMapping(value = "/getWeibullPlot")
-//    @ApiOperation("获取ORT强度韦伯图")
-//    public Result getWeibullPlot(
-//            String factory //工厂
-//            , @ApiParam("项目")@RequestParam String model //项目
-//            , @ApiParam("颜色")@RequestParam String color //颜色
-//            , @ApiParam("生成阶段")@RequestParam String productionPhase //生成阶段
-//            , @ApiParam("阶段")@RequestParam String stage //阶段
-//            , @ApiParam("测试项目")@RequestParam String testProject //测试项目
-//            , String config1
-//            , String config2
-//            , @ApiParam("开始时间")@RequestParam String startDate //开始时间
-//            , @ApiParam("结束时间")@RequestParam String endDate //结束时间
-//    ) throws IOException {
-//        try {
-//            String redisKey = "ORT:强度:韦伯图:" + testProject + ":" + stage + ":" + model + ":" + color + ":" + startDate + ":" + endDate;
-//
-//            Object filename = redisUtils.get(redisKey);
-//
-//            if (filename != null){
-//                return new Result(200, "获取图片成功", env.getProperty("imgUrl") + "/" + filename.toString());
-//            }
-//
-//            QueryWrapper<DfOrtStrengthDetail> qw = new QueryWrapper<>();
-//            qw
-//                    .eq(StringUtils.isNotEmpty(model), "model", model)
-//                    .eq(StringUtils.isNotEmpty(color), "color", color)
-//                    .eq(StringUtils.isNotEmpty(productionPhase), "production_phase", productionPhase)
-//                    .eq(StringUtils.isNotEmpty(testProject),"`type`",testProject)
-//                    .eq(StringUtils.isNotEmpty(stage),"stage",stage)
-//                    .between("test_time", startDate + " 00:00:00", endDate + " 23:59:59");
-//
-//            List<DfOrtStrengthDetail> list = dfOrtStrengthDetailService.getCheckNameDataList(qw);
-//
-//            if(list == null || list.size() == 0){
-//                return new Result(500, "当前条件下没有相关数据");
-//            }
-//
-//            //强度标准
-//            QueryWrapper<DfOrtExperStandConfig> configQw = new QueryWrapper<>();
-//            configQw
-//                    .eq("project", model)
-//                    .eq("color", color)
-//                    .eq( "stage", stage)
-//                    .eq( "experiment", testProject);
-//            List<DfOrtExperStandConfig> configList = dfOrtExperStandConfigService.list(configQw);
-//
-//            if (configList == null || configList.size() == 0){
-//                return new Result(500, "当前条件下没有相关标准数据");
-//            }
-//
-//            //标准数据
-//            Map<String,Double> configMap = new HashMap<>();
-//
-//            for (DfOrtExperStandConfig dfOrtExperStandConfig : configList) {
-//                configMap.put(dfOrtExperStandConfig.getStandardItem(), dfOrtExperStandConfig.getStandardValue());
-//            }
-//
-//            Map<String, String> replaceMap = new HashMap<>();
-//            replaceMap.put("#JSON_DATA#", JSON.toJSONString(list));
-//            replaceMap.put("#X#", "batch");
-//            replaceMap.put("#Y#", "value");
-//            replaceMap.put("#Char#",configMap.get("Char63.2").toString());
-//            replaceMap.put("#B10#",configMap.get("B10").toString());
-//            replaceMap.put("#B5#",configMap.get("B5").toString());
-//            replaceMap.put("#Min#",configMap.get("Min").toString());
-//            Double showMin = configMap.get("Min") - configMap.get("Min") * 0.1;
-//            replaceMap.put("#showMin#",showMin.toString());
-//
-//            String jslFilePath = env.getProperty("jslPath") + "/加上表生成韦伯图多批.jsl";
-//            String jslCreatePath = env.getProperty("jslCreatePath");
-//            String imgPath = env.getProperty("imgPath");
-//
-//            Map<String,String> urlMap = testController.modifyFileContent(jslFilePath, jslCreatePath,imgPath, replaceMap);
-//            CmdScript.runCmd(urlMap.get("runJsl"));
-//
-//
-//            File imgFile=new File(urlMap.get("imageUrl"));
-//
-//            if (!imgFile.exists()|| null== imgFile) {
-//                return new Result(500,"查询失败");
-//            }
-//
-//            boolean redisFlag = redisUtils.set(redisKey,urlMap.get("imageName"));
-//
-//            return new Result(200,"查询成功",env.getProperty("imgUrl") + "/" + urlMap.get("imageName"));
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//        return new Result(500,"查询失败");
-//    }
-    //
-    //
-    //    @ApiOperation("标准值分布")
-    //    @GetMapping("/listBatchStatistics")
-    //    public Result listStatistics(
-    //            String factory //工厂
-    //            , @ApiParam("项目")@RequestParam String model //项目
-    //            , @ApiParam("颜色")@RequestParam String color //颜色
-    //            , @ApiParam("生成阶段")@RequestParam String productionPhase //生成阶段
-    //            , @ApiParam("阶段")@RequestParam String stage //阶段
-    //            , @ApiParam("测试项目")@RequestParam String testProject //测试项目
-    //            , String config1
-    //            , String config2
-    //            , @ApiParam("开始时间")@RequestParam String startDate //开始时间
-    //            , @ApiParam("结束时间")@RequestParam String endDate //结束时间
-    //    ) {
-    //        //强度标准
-    //        QueryWrapper<DfOrtExperStandConfig> configQw = new QueryWrapper<>();
-    //        configQw
-    //                    .eq("project", model)
-    //                    .eq("color", color)
-    //                    .eq( "stage", stage)
-    //                    .eq( "experiment", testProject);
-    //        List<DfOrtExperStandConfig> configList = dfOrtExperStandConfigService.list(configQw);
-    //
-    //        if (configList == null || configList.size() == 0){
-    //            return new Result(500, "当前条件下没有相关标准数据");
-    //        }
-    //
-    //        Statistics standard = new Statistics();
-    //        standard.setName("标准");
-    //        for (DfOrtExperStandConfig dfOrtExperStandConfig : configList) {
-    //            switch (dfOrtExperStandConfig.getStandardItem()) {
-    //                case "Char63.2": standard.setChar652(dfOrtExperStandConfig.getStandardValue()); break;
-    //                case "B10": standard.setB10(dfOrtExperStandConfig.getStandardValue()); break;
-    //                case "B5": standard.setB5(dfOrtExperStandConfig.getStandardValue()); break;
-    //                case "Min": standard.setMin(dfOrtExperStandConfig.getStandardValue()); break;
-    //            }
-    //        }
-    //
-    //        QueryWrapper<DfOrtStrengthResult> qw = new QueryWrapper<>();
-    //        qw
-    //                    .eq(StringUtils.isNotEmpty(model), "model", model)
-    //                    .eq(StringUtils.isNotEmpty(color), "color", color)
-    //                    .eq(StringUtils.isNotEmpty(productionPhase), "production_phase", productionPhase)
-    //                    .eq(StringUtils.isNotEmpty(testProject),"`type`",testProject)
-    //                    .eq(StringUtils.isNotEmpty(stage),"stage",stage)
-    //                .between( "test_time", startDate, endDate + " 23:59:59");
-    //        List<Statistics> statisticsList = dfOrtStrengthResultService.listBatchStatistics(qw);
-    //        statisticsList.add(0, standard);
-    //
-    //        return new Result(200, "查询成功", statisticsList);
-    //    }
-//
-//    @ApiOperation("结果汇总")
-//    @GetMapping("/listStatistics")
-//    public Result listResultStatistics(
-//            String factory //工厂
-//            , @ApiParam("项目")@RequestParam String model //项目
-//            , @ApiParam("颜色")@RequestParam String color //颜色
-//            , @ApiParam("生成阶段")@RequestParam String productionPhase //生成阶段
-//            , @ApiParam("阶段")@RequestParam String stage //阶段
-//            , @ApiParam("测试项目")@RequestParam String testProject //测试项目
-//            , String config1
-//            , String config2
-//            , @ApiParam("开始时间")@RequestParam String startDate //开始时间
-//            , @ApiParam("结束时间")@RequestParam String endDate //结束时间
-//    ) {
-//        QueryWrapper<DfOrtStrengthResult> qw = new QueryWrapper<>();
-//
-//        qw
-//                .eq(StringUtils.isNotEmpty(model), "model", model)
-//                .eq(StringUtils.isNotEmpty(color), "color", color)
-//                .eq(StringUtils.isNotEmpty(productionPhase), "production_phase", productionPhase)
-//                .eq(StringUtils.isNotEmpty(testProject),"`type`",testProject)
-//                .eq(StringUtils.isNotEmpty(stage),"stage",stage)
-//                .between("test_time", startDate + " 00:00:00", endDate + " 23:59:59");
-//
-//        List<Statistics2> statisticsList = dfOrtStrengthResultService.listResultStatistics(qw);
-//        if (null != factory && !"".equals(factory)) {
-//            for (Statistics2 statistics2 : statisticsList) {
-//                if (statistics2.getName().equals("汇总")) {
-//                    statisticsList.remove(statistics2);
-//                }
-//            }
-//        }
-//
-//        return new Result(200, "查询成功", statisticsList);
-//    }
-//
-//    @ApiOperation("单批次分析")
-//    @GetMapping("/oneBatchStrength")
-//    public Result oneBatchStatistics(
-//            @RequestParam String batch,
-//            @RequestParam String testProject,
-//            @RequestParam String stage, // 白片 或者 成品
-//            String model, String color
-//    ) {
-//        QueryWrapper<DfOrtStrengthResult> qw = new QueryWrapper<>();
-//        qw.eq(!"".equals(batch), "batch", batch)
-//                .eq(!"".equals(testProject), "type", testProject)
-//                .eq(!"".equals(stage), "stage", stage)
-//                .eq(!"".equals(model), "model", model)
-//                .eq(!"".equals(color), "color", color);
-//
-//        DfOrtStrengthResult one = dfOrtStrengthResultService.getOne(qw);
-//        if (null == one) return new Result(200, "查无数据");
-//        String mes = "";
-//        if (one.getChar632() < one.getChar632Standard()) mes = mes + "Char63.2 NG\n";
-//        if (one.getB10() < one.getB10Standard()) mes = mes + "B10 NG\n";
-//        if (one.getB5() < one.getB5Standard()) mes = mes + "B5 NG\n";
-//        if (one.getTreshold() < one.getTresholdStandard()) mes = mes + "Min NG\n";
-//        if ("".equals(mes)) mes = "OK";
-//        Map<String, Object> result = new HashMap<>();
-//        result.put("mes", mes);
-//        result.put("result", one);
-//
-//        return new Result(200, "查询成功", result);
-//    }
-//
-//
-//    /**
-//     * 获取ORT强度均值分析图
-//     * @return
-//     * @throws IOException
-//     */
-//    @GetMapping(value = "/getMeanAnalysis")
-//    @ApiOperation("获取ORT强度均值分析图")
-//    public Result getMeanAnalysis(
-//            String factory //工厂
-//            , @ApiParam("项目")@RequestParam String model //项目
-//            , @ApiParam("颜色")@RequestParam String color //颜色
-//            , @ApiParam("生成阶段")@RequestParam String productionPhase //生成阶段
-//            , @ApiParam("阶段")@RequestParam String stage //阶段
-//            , @ApiParam("测试项目")@RequestParam String testProject //测试项目
-//            , String config1
-//            , String config2
-//            , @ApiParam("开始时间")@RequestParam String startDate //开始时间
-//            , @ApiParam("结束时间")@RequestParam String endDate //结束时间
-//    ) throws IOException {
-//        try {
-//            String redisKey = "ORT:强度:均值分析图:" + testProject + ":" + stage + ":" + model + ":" + color + ":" + startDate + ":" + endDate;
-//
-//            Object filename = redisUtils.get(redisKey);
-//
-//            if (filename != null){
-//                return new Result(200, "获取图片成功", env.getProperty("imgUrl") + "/" + filename.toString());
-//            }
-//
-//            QueryWrapper<DfOrtStrengthDetail> qw=new QueryWrapper<>();
-//            qw
-//                    .eq(StringUtils.isNotEmpty(model), "model", model)
-//                    .eq(StringUtils.isNotEmpty(color), "color", color)
-//                    .eq(StringUtils.isNotEmpty(productionPhase), "production_phase", productionPhase)
-//                    .eq(StringUtils.isNotEmpty(testProject),"`type`",testProject)
-//                    .eq(StringUtils.isNotEmpty(stage),"stage",stage)
-//                    .between("test_time", startDate + " 00:00:00", endDate + " 23:59:59");
-//
-//            List<DfOrtStrengthDetail> list = dfOrtStrengthDetailService.getCheckNameDataList(qw);
-//
-//            if(list == null || list.size() == 0){
-//                return new Result(500, "当前条件下没有相关数据");
-//            }
-//
-//            Map<String, String> replaceMap = new HashMap<>();
-//            replaceMap.put("#JSON_DATA#", JSON.toJSONString(list));
-//            replaceMap.put("#X#", "batch");
-//            replaceMap.put("#Y#", "value");
-//
-//            String jslFilePath = env.getProperty("jslPath") + "/均值分析图.jsl";
-//            String jslCreatePath = env.getProperty("jslCreatePath");
-//            String imgPath = env.getProperty("imgPath");
-//
-//            Map<String,String> urlMap = testController.modifyFileContent(jslFilePath, jslCreatePath,imgPath, replaceMap);
-//            CmdScript.runCmd(urlMap.get("runJsl"));
-//
-//
-//            File imgFile=new File(urlMap.get("imageUrl"));
-//
-//            if (!imgFile.exists()|| null== imgFile) {
-//                return new Result(500,"查询失败");
-//            }
-//
-//            boolean redisFlag = redisUtils.set(redisKey,urlMap.get("imageName"));
-//
-//            return new Result(200,"查询成功",env.getProperty("imgUrl") + "/" + urlMap.get("imageName"));
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//        return new Result(500,"查询失败");
-//    }
-//
-//    /**
-//     * 获取ORT强度方差分析图
-//     * @return
-//     * @throws IOException
-//     */
-//    @GetMapping(value = "/getVarianceAnalysis")
-//    @ApiOperation("获取ORT强度方差分析图")
-//    public Result getVarianceAnalysis(
-//            String factory //工厂
-//            , @ApiParam("项目")@RequestParam String model //项目
-//            , @ApiParam("颜色")@RequestParam String color //颜色
-//            , @ApiParam("生成阶段")@RequestParam String productionPhase //生成阶段
-//            , @ApiParam("阶段")@RequestParam String stage //阶段
-//            , @ApiParam("测试项目")@RequestParam String testProject //测试项目
-//            , String config1
-//            , String config2
-//            , @ApiParam("开始时间")@RequestParam String startDate //开始时间
-//            , @ApiParam("结束时间")@RequestParam String endDate //结束时间
-//    ) throws IOException {
-//        try {
-//            String redisKey = "ORT:强度:方差分析图:" + testProject + ":" + stage + ":" + model + ":" + color + ":" + startDate + ":" + endDate;
-//
-//            Object filename = redisUtils.get(redisKey);
-//
-//            if (filename != null){
-//                return new Result(200, "获取图片成功", env.getProperty("imgUrl") + "/" + filename.toString());
-//            }
-//
-//            QueryWrapper<DfOrtStrengthDetail> qw=new QueryWrapper<>();
-//            qw
-//                    .eq(StringUtils.isNotEmpty(model), "model", model)
-//                    .eq(StringUtils.isNotEmpty(color), "color", color)
-//                    .eq(StringUtils.isNotEmpty(productionPhase), "production_phase", productionPhase)
-//                    .eq(StringUtils.isNotEmpty(testProject),"`type`",testProject)
-//                    .eq(StringUtils.isNotEmpty(stage),"stage",stage)
-//                    .between("test_time", startDate + " 00:00:00", endDate + " 23:59:59");
-//
-//            List<DfOrtStrengthDetail> list = dfOrtStrengthDetailService.getCheckNameDataList(qw);
-//
-//            if(list == null || list.size() == 0){
-//                return new Result(500, "当前条件下没有相关数据");
-//            }
-//
-//            Map<String, String> replaceMap = new HashMap<>();
-//            replaceMap.put("#JSON_DATA#", JSON.toJSONString(list));
-//            replaceMap.put("#X#", "batch");
-//            replaceMap.put("#Y#", "value");
-//
-//            String jslFilePath = env.getProperty("jslPath") + "/方差分析图.jsl";
-//            String jslCreatePath = env.getProperty("jslCreatePath");
-//            String imgPath = env.getProperty("imgPath");
-//
-//            Map<String,String> urlMap = testController.modifyFileContent(jslFilePath, jslCreatePath,imgPath, replaceMap);
-//            CmdScript.runCmd(urlMap.get("runJsl"));
-//
-//
-//            File imgFile=new File(urlMap.get("imageUrl"));
-//
-//            if (!imgFile.exists()|| null== imgFile) {
-//                return new Result(500,"查询失败");
-//            }
-//
-//            boolean redisFlag = redisUtils.set(redisKey,urlMap.get("imageName"));
-//
-//            return new Result(200,"查询成功",env.getProperty("imgUrl") + "/" + urlMap.get("imageName"));
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//        return new Result(500,"查询失败");
-//    }
-//
-//    /**
-//     * 获取ORT强度非参数叠加图
-//     * @return
-//     * @throws IOException
-//     */
-//    @GetMapping(value = "/getNonparametric")
-//    @ApiOperation("获取ORT强度非参数叠加图")
-//    public Result getNonparametric(
-//            String factory //工厂
-//            , @ApiParam("项目")@RequestParam String model //项目
-//            , @ApiParam("颜色")@RequestParam String color //颜色
-//            , @ApiParam("生成阶段")@RequestParam String productionPhase //生成阶段
-//            , @ApiParam("阶段")@RequestParam String stage //阶段
-//            , @ApiParam("测试项目")@RequestParam String testProject //测试项目
-//            , String config1
-//            , String config2
-//            , @ApiParam("开始时间")@RequestParam String startDate //开始时间
-//            , @ApiParam("结束时间")@RequestParam String endDate //结束时间
-//    ) throws IOException {
-//        try {
-//            String redisKey = "ORT:强度:非参数叠加图:" + testProject + ":" + stage + ":" + model + ":" + color + ":" + startDate + ":" + endDate;
-//
-//            Object filename = redisUtils.get(redisKey);
-//
-//            if (filename != null){
-//                return new Result(200, "获取图片成功", env.getProperty("imgUrl") + "/" + filename.toString());
-//            }
-//
-//            QueryWrapper<DfOrtStrengthDetail> qw=new QueryWrapper<>();
-//            qw
-//                    .eq(StringUtils.isNotEmpty(model), "model", model)
-//                    .eq(StringUtils.isNotEmpty(color), "color", color)
-//                    .eq(StringUtils.isNotEmpty(productionPhase), "production_phase", productionPhase)
-//                    .eq(StringUtils.isNotEmpty(testProject),"`type`",testProject)
-//                    .eq(StringUtils.isNotEmpty(stage),"stage",stage)
-//                    .between("test_time", startDate + " 00:00:00", endDate + " 23:59:59");
-//
-//            List<DfOrtStrengthDetail> list = dfOrtStrengthDetailService.getCheckNameDataList(qw);
-//
-//            if(list == null || list.size() == 0){
-//                return new Result(500, "当前条件下没有相关数据");
-//            }
-//
-//            Map<String, String> replaceMap = new HashMap<>();
-//            replaceMap.put("#JSON_DATA#", JSON.toJSONString(list));
-//            replaceMap.put("#X#", "batch");
-//            replaceMap.put("#Y#", "value");
-//
-//            String jslFilePath = env.getProperty("jslPath") + "/非参数叠加图.jsl";
-//            String jslCreatePath = env.getProperty("jslCreatePath");
-//            String imgPath = env.getProperty("imgPath");
-//
-//            Map<String,String> urlMap = testController.modifyFileContent(jslFilePath, jslCreatePath,imgPath, replaceMap);
-//            CmdScript.runCmd(urlMap.get("runJsl"));
-//
-//
-//            File imgFile=new File(urlMap.get("imageUrl"));
-//
-//            if (!imgFile.exists()|| null== imgFile) {
-//                return new Result(500,"查询失败");
-//            }
-//
-//            boolean redisFlag = redisUtils.set(redisKey,urlMap.get("imageName"));
-//
-//            return new Result(200,"查询成功",env.getProperty("imgUrl") + "/" + urlMap.get("imageName"));
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//        return new Result(500,"查询失败");
-//    }
-
     /**
      * 获取ORT强度韦伯图
      * @return
@@ -496,14 +68,6 @@ public class DfOrtStrengthResultController {
             , @ApiParam("开始时间")@RequestParam String startDate
             , @ApiParam("结束时间")@RequestParam String endDate
     ) throws IOException {
-        String redisKey = "ORT:Strength:WeibullPlot:" + factory + ":" + project + ":" + color + ":" + stage + ":" + process + ":"+ checkItem + ":" + startDate + "_" + endDate;
-        if (redisUtils.hasKey(redisKey)){
-            String filename = (String) redisUtils.get(redisKey);
-
-            String data = env.getProperty("imgUrl") + "/" + filename;
-            return new Result(200,"获取ORT强度韦伯图成功",data);
-        }
-
         String startTime = startDate + " 00:00:00";
         String endTime = endDate + " 23:59:59";
 
@@ -580,6 +144,17 @@ public class DfOrtStrengthResultController {
 
         replaceMap.put("#JSON_DATA#", JSON.toJSONString(list));
 
+        // 计算替换后内容的 MD5 值
+        String md5Hash = getMD5Hash(JsonUtil.toJson(replaceMap));
+
+        String redisKey = "ORT:Strength:WeibullPlot:" + factory + ":" + project + ":" + color + ":" + stage + ":" + process + ":"+ checkItem + ":" + startDate + "_" + endDate + ":" + md5Hash;
+        if (redisUtils.hasKey(redisKey)){
+            String filename = (String) redisUtils.get(redisKey);
+
+            String data = env.getProperty("imgUrl") + "/" + filename;
+            return new Result(200,"获取ORT强度韦伯图成功",data);
+        }
+
         String jslFilePath = env.getProperty("jslPath") + "/加上表生成韦伯图多批.jsl";
         String jslCreatePath = env.getProperty("jslCreatePath");
         String imgPath = env.getProperty("imgPath");
@@ -594,7 +169,7 @@ public class DfOrtStrengthResultController {
         }
 
         //更新到缓存
-        redisUtils.set(redisKey,urlMap.get("imageName"),  60 * 60 * 24 * 7);
+        redisUtils.set(redisKey,urlMap.get("imageName"),  60 * 60 * 24 * 3);
 
         String data = env.getProperty("imgUrl") + "/" + urlMap.get("imageName");
 
@@ -813,15 +388,6 @@ public class DfOrtStrengthResultController {
             , @ApiParam("开始时间")@RequestParam String startDate
             , @ApiParam("结束时间")@RequestParam String endDate
     ) throws IOException {
-
-        String redisKey = "ORT:Strength:MeanAnalysis:" + factory + ":" + project + ":" + color + ":" + stage + ":" + process + ":"+ checkItem + ":" + startDate + "_" + endDate;
-        if (redisUtils.hasKey(redisKey)){
-            String filename = (String) redisUtils.get(redisKey);
-
-            String data = env.getProperty("imgUrl") + "/" + filename;
-            return new Result(200,"获取ORT强度均值分析图成功",data);
-        }
-
         String startTime = startDate + " 00:00:00";
         String endTime = endDate + " 23:59:59";
 
@@ -872,6 +438,17 @@ public class DfOrtStrengthResultController {
 
         replaceMap.put("#JSON_DATA#", JSON.toJSONString(list));
 
+        // 计算替换后内容的 MD5 值
+        String md5Hash = getMD5Hash(JsonUtil.toJson(replaceMap));
+
+        String redisKey = "ORT:Strength:MeanAnalysis:" + factory + ":" + project + ":" + color + ":" + stage + ":" + process + ":"+ checkItem + ":" + startDate + "_" + endDate + ":" + md5Hash;
+        if (redisUtils.hasKey(redisKey)){
+            String filename = (String) redisUtils.get(redisKey);
+
+            String data = env.getProperty("imgUrl") + "/" + filename;
+            return new Result(200,"获取ORT强度均值分析图成功",data);
+        }
+
         String jslFilePath = env.getProperty("jslPath") + "/均值分析图.jsl";
         String jslCreatePath = env.getProperty("jslCreatePath");
         String imgPath = env.getProperty("imgPath");
@@ -887,7 +464,7 @@ public class DfOrtStrengthResultController {
         }
 
         //更新缓存图片
-        redisUtils.set(redisKey,urlMap.get("imageName"),  60 * 60 * 24 * 7);
+        redisUtils.set(redisKey,urlMap.get("imageName"),  60 * 60 * 24 * 3);
 
         return new Result(200,"获取ORT强度均值分析图成功",env.getProperty("imgUrl") + "/" + urlMap.get("imageName"));
     }
@@ -909,15 +486,6 @@ public class DfOrtStrengthResultController {
             , @ApiParam("开始时间")@RequestParam String startDate
             , @ApiParam("结束时间")@RequestParam String endDate
     ) throws IOException {
-
-        String redisKey = "ORT:Strength:VarianceAnalysis:" + factory + ":" + project + ":" + color + ":" + stage + ":" + process + ":"+ checkItem + ":" + startDate + "_" + endDate;
-        if (redisUtils.hasKey(redisKey)){
-            String filename = (String) redisUtils.get(redisKey);
-
-            String data = env.getProperty("imgUrl") + "/" + filename;
-            return new Result(200,"获取ORT强度方差分析图",data);
-        }
-
         String startTime = startDate + " 00:00:00";
         String endTime = endDate + " 23:59:59";
 
@@ -968,6 +536,17 @@ public class DfOrtStrengthResultController {
 
         replaceMap.put("#JSON_DATA#", JSON.toJSONString(list));
 
+        // 计算替换后内容的 MD5 值
+        String md5Hash = getMD5Hash(JsonUtil.toJson(replaceMap));
+
+        String redisKey = "ORT:Strength:VarianceAnalysis:" + factory + ":" + project + ":" + color + ":" + stage + ":" + process + ":"+ checkItem + ":" + startDate + "_" + endDate + ":" + md5Hash;
+        if (redisUtils.hasKey(redisKey)){
+            String filename = (String) redisUtils.get(redisKey);
+
+            String data = env.getProperty("imgUrl") + "/" + filename;
+            return new Result(200,"获取ORT强度方差分析图",data);
+        }
+
         String jslFilePath = env.getProperty("jslPath") + "/方差分析图.jsl";
         String jslCreatePath = env.getProperty("jslCreatePath");
         String imgPath = env.getProperty("imgPath");
@@ -982,7 +561,7 @@ public class DfOrtStrengthResultController {
         }
 
         // 更新缓存图片
-        redisUtils.set(redisKey,urlMap.get("imageName"),  60 * 60 * 24 * 7);
+        redisUtils.set(redisKey,urlMap.get("imageName"),  60 * 60 * 24 * 3);
 
         return new Result(200,"获取ORT强度方差分析图",env.getProperty("imgUrl") + "/" + urlMap.get("imageName"));
     }
@@ -1004,15 +583,6 @@ public class DfOrtStrengthResultController {
             , @ApiParam("开始时间")@RequestParam String startDate
             , @ApiParam("结束时间")@RequestParam String endDate
     ) throws IOException {
-
-        String redisKey = "ORT:Strength:Nonparametric:" + factory + ":" + project + ":" + color + ":" + stage + ":" + process + ":"+ checkItem + ":" + startDate + "_" + endDate;
-        if (redisUtils.hasKey(redisKey)){
-            String filename = (String) redisUtils.get(redisKey);
-
-            String data = env.getProperty("imgUrl") + "/" + filename;
-            return new Result(200,"获取ORT强度非参数叠加图成功",data);
-        }
-
         String startTime = startDate + " 00:00:00";
         String endTime = endDate + " 23:59:59";
 
@@ -1063,6 +633,17 @@ public class DfOrtStrengthResultController {
 
         replaceMap.put("#JSON_DATA#", JSON.toJSONString(list));
 
+        // 计算替换后内容的 MD5 值
+        String md5Hash = getMD5Hash(JsonUtil.toJson(replaceMap));
+
+        String redisKey = "ORT:Strength:Nonparametric:" + factory + ":" + project + ":" + color + ":" + stage + ":" + process + ":"+ checkItem + ":" + startDate + "_" + endDate + ":" + md5Hash;
+        if (redisUtils.hasKey(redisKey)){
+            String filename = (String) redisUtils.get(redisKey);
+
+            String data = env.getProperty("imgUrl") + "/" + filename;
+            return new Result(200,"获取ORT强度非参数叠加图成功",data);
+        }
+
         String jslFilePath = env.getProperty("jslPath") + "/非参数叠加图.jsl";
         String jslCreatePath = env.getProperty("jslCreatePath");
         String imgPath = env.getProperty("imgPath");
@@ -1077,7 +658,7 @@ public class DfOrtStrengthResultController {
         }
 
         //  更新缓存图片
-        redisUtils.set(redisKey,urlMap.get("imageName"),  60 * 60 * 24 * 7);
+        redisUtils.set(redisKey,urlMap.get("imageName"),  60 * 60 * 24 * 3);
 
         return new Result(200,"获取ORT强度非参数叠加图成功",env.getProperty("imgUrl") + "/" + urlMap.get("imageName"));
     }

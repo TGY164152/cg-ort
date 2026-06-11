@@ -175,7 +175,7 @@ public class testController {
      * @param input
      * @return
      */
-    private static String getMD5Hash(String input) {
+    public static String getMD5Hash(String input) {
         try {
             MessageDigest md = MessageDigest.getInstance("MD5");
             byte[] hashBytes = md.digest(input.getBytes());

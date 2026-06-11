@@ -23,6 +23,8 @@ import java.io.File;
 import java.io.IOException;
 import java.util.*;
 
+import static com.ww.ort.controller.testController.getMD5Hash;
+
 /**
  * <p>
  * ORT颜色/雾都 前端控制器
@@ -72,17 +74,8 @@ public class DfOrtColorAndHazeController {
             , @ApiParam("结束时间")@RequestParam String endDate
 
     ) throws IOException {
-
         String startTime = startDate + " 00:00:00";
         String endTime = endDate + " 23:59:59";
-
-        String redisKey = "ORT:Environment:BoxPlot:" + factory + ":" + project + ":" + color + ":" + stage + ":" + process + ":"+ checkItem + ":" + checkType + ":" + startDate + "_" + endDate;
-        if (redisUtils.hasKey(redisKey)){
-            String filename = (String) redisUtils.get(redisKey);
-
-            String data = env.getProperty("imgUrl") + "/" + filename;
-            return new Result(200,"获取ORT强度均值分析图成功",data);
-        }
 
         QueryWrapper<DfOrtTestItemImportConfig> configQw = new QueryWrapper<>();
         configQw
@@ -185,7 +178,6 @@ public class DfOrtColorAndHazeController {
             return new Result(500, "当前条件下没有相关数据");
         }
 
-
         for (Map<String, String> map : list){
             for (String checkName : checkNameList){
                 Double value = Double.valueOf(String.valueOf(map.get(checkName)));
@@ -209,8 +201,16 @@ public class DfOrtColorAndHazeController {
 
         replaceMap.put("#JSON_DATA#", JsonUtil.toJson(list));
 
+        // 计算替换后内容的 MD5 值
+        String md5Hash = getMD5Hash(JsonUtil.toJson(replaceMap));
 
+        String redisKey = "ORT:Environment:BoxPlot:" + factory + ":" + project + ":" + color + ":" + stage + ":" + process + ":"+ checkItem + ":" + checkType + ":" + startDate + "_" + endDate + ":" + md5Hash;
+        if (redisUtils.hasKey(redisKey)){
+            String filename = (String) redisUtils.get(redisKey);
 
+            String data = env.getProperty("imgUrl") + "/" + filename;
+            return new Result(200,"获取ORT强度均值分析图成功",data);
+        }
 
         String jslFilePath = env.getProperty("jslPath") + "/多点位（固定）箱线图脚本.jsl";
         String jslCreatePath = env.getProperty("jslCreatePath");
@@ -225,7 +225,7 @@ public class DfOrtColorAndHazeController {
             return new Result(500,"查询失败");
         }
 
-        redisUtils.set(redisKey,urlMap.get("imageName"));
+        redisUtils.set(redisKey,urlMap.get("imageName"), 60 * 60 * 24 * 3);
 
         return new Result(200,"获取ORT多点位（固定）箱线图（颜色）数据成功", env.getProperty("imgUrl") + "/" + urlMap.get("imageName"));
     }

@@ -25,6 +25,8 @@ import java.io.File;
 import java.io.IOException;
 import java.util.*;
 
+import static com.ww.ort.controller.testController.getMD5Hash;
+
 /**
  * <p>
  * 雾度测量详情 前端控制器
@@ -730,15 +732,6 @@ public class DfOrtHazeController {
             , @ApiParam("开始时间")@RequestParam String startDate
             , @ApiParam("结束时间")@RequestParam String endDate
     ) throws IOException {
-
-        String redisKey = "ORT:optics:MeanAnalysis:" + factory + ":" + project + ":" + color + ":" + stage + ":" + process + ":"+ checkItem + ":" + checkName + ":" + startDate + "_" + endDate;
-        if (redisUtils.hasKey(redisKey)){
-            String filename = (String) redisUtils.get(redisKey);
-
-            String data = env.getProperty("imgUrl") + "/" + filename;
-            return new Result(200,"获取均值分析图成功",data);
-        }
-
         String startTime = startDate + " 00:00:00";
         String endTime = endDate + " 23:59:59";
 
@@ -806,13 +799,23 @@ public class DfOrtHazeController {
 
         replaceMap.put("#JSON_DATA#", JSON.toJSONString(list));
 
+        // 计算替换后内容的 MD5 值
+        String md5Hash = getMD5Hash(JsonUtil.toJson(replaceMap));
+
+        String redisKey = "ORT:optics:MeanAnalysis:" + factory + ":" + project + ":" + color + ":" + stage + ":" + process + ":"+ checkItem + ":" + checkName + ":" + startDate + "_" + endDate + ":" + md5Hash;
+        if (redisUtils.hasKey(redisKey)){
+            String filename = (String) redisUtils.get(redisKey);
+
+            String data = env.getProperty("imgUrl") + "/" + filename;
+            return new Result(200,"获取均值分析图成功",data);
+        }
+
         String jslFilePath = env.getProperty("jslPath") + "/均值分析图.jsl";
         String jslCreatePath = env.getProperty("jslCreatePath");
         String imgPath = env.getProperty("imgPath");
 
         Map<String,String> urlMap = testController.modifyFileContent(jslFilePath, jslCreatePath,imgPath, replaceMap);
         CmdScript.runCmd(urlMap.get("runJsl"));
-
 
         File imgFile=new File(urlMap.get("imageUrl"));
 
@@ -821,7 +824,7 @@ public class DfOrtHazeController {
         }
 
         //更新缓存图片
-        redisUtils.set(redisKey,urlMap.get("imageName"),  60 * 60 * 24 * 7);
+        redisUtils.set(redisKey,urlMap.get("imageName"),  60 * 60 * 24 * 3);
 
         return new Result(200,"获取均值分析图成功",env.getProperty("imgUrl") + "/" + urlMap.get("imageName"));
     }
@@ -844,15 +847,6 @@ public class DfOrtHazeController {
             , @ApiParam("开始时间")@RequestParam String startDate
             , @ApiParam("结束时间")@RequestParam String endDate
     ) throws IOException {
-
-        String redisKey = "ORT:Optics:VarianceAnalysis:" + factory + ":" + project + ":" + color + ":" + stage + ":" + process + ":"+ checkItem + ":" + checkName + ":" + startDate + "_" + endDate;
-        if (redisUtils.hasKey(redisKey)){
-            String filename = (String) redisUtils.get(redisKey);
-
-            String data = env.getProperty("imgUrl") + "/" + filename;
-            return new Result(200,"获取ORT强度方差分析图",data);
-        }
-
         String startTime = startDate + " 00:00:00";
         String endTime = endDate + " 23:59:59";
 
@@ -920,6 +914,17 @@ public class DfOrtHazeController {
 
         replaceMap.put("#JSON_DATA#", JSON.toJSONString(list));
 
+        // 计算替换后内容的 MD5 值
+        String md5Hash = getMD5Hash(JsonUtil.toJson(replaceMap));
+
+        String redisKey = "ORT:Optics:VarianceAnalysis:" + factory + ":" + project + ":" + color + ":" + stage + ":" + process + ":"+ checkItem + ":" + checkName + ":" + startDate + "_" + endDate + ":" + md5Hash;
+        if (redisUtils.hasKey(redisKey)){
+            String filename = (String) redisUtils.get(redisKey);
+
+            String data = env.getProperty("imgUrl") + "/" + filename;
+            return new Result(200,"获取ORT强度方差分析图",data);
+        }
+
         String jslFilePath = env.getProperty("jslPath") + "/方差分析图.jsl";
         String jslCreatePath = env.getProperty("jslCreatePath");
         String imgPath = env.getProperty("imgPath");
@@ -934,7 +939,7 @@ public class DfOrtHazeController {
         }
 
         // 更新缓存图片
-        redisUtils.set(redisKey,urlMap.get("imageName"),  60 * 60 * 24 * 7);
+        redisUtils.set(redisKey,urlMap.get("imageName"),  60 * 60 * 24 * 3);
 
         return new Result(200,"获取ORT强度方差分析图",env.getProperty("imgUrl") + "/" + urlMap.get("imageName"));
     }
